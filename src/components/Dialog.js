@@ -67,7 +67,7 @@ class Dialog extends Component {
   }
 
   onOverlayPress() {
-    this.close();
+    this.props.closeOnTouchOutside && this.close();
   }
 
   setDialogState(toValue, callback) {
@@ -75,7 +75,6 @@ class Dialog extends Component {
     let dialogState = toValue ? 'opening' : 'closing';
 
     this.setState({ dialogState });
-
     setTimeout(() => {
       dialogState = dialogState === 'closing' ? 'closed' : 'opened';
       this.setState({ dialogState });
@@ -83,7 +82,7 @@ class Dialog extends Component {
     }, this.props.animationDuration);
   }
 
-  calculateDialogSize({ width, height }): Object {
+  calculateDialogSize({ width, height }) {
     const size = { width, height };
     if (width > 0.0 && width < 1.0) {
       size.width = width * WIDTH;
